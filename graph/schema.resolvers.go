@@ -19,7 +19,7 @@ func (r *mutationResolver) DeleteBook(ctx context.Context, id int) (string, erro
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateBook(ctx context.Context, id int) (string, error) {
+func (r *mutationResolver) UpdateBook(ctx context.Context, id int, input model.BookInput) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	"github.com/iyiola-dev/go-graphql/graph/model"
+	"github.com/iyiola-dev/go-graphql/app/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -30,5 +30,5 @@ func NewConnection(config *Config) (*gorm.DB, error) {
 }
 
 func Migrate(db *gorm.DB) error {
-	return db.AutoMigrate(&model.Book{})
+	return db.AutoMigrate(&models.Book{})
 }

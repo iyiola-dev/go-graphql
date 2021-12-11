@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/99designs/gqlgen v0.14.0
 	github.com/vektah/gqlparser/v2 v2.2.0
+	gorm.io/gorm v1.22.4
 )
 
 require (
@@ -20,7 +21,6 @@ require (
 	github.com/jinzhu/now v1.1.4 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gorm.io/gorm v1.22.4 // indirect
 )
 
 require (
@@ -33,7 +33,6 @@ require (
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/russross/blackfriday/v2 v2.0.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/urfave/cli/v2 v2.1.1 // indirect
 	github.com/vektah/dataloaden v0.2.1-0.20190515034641-a19b9a6e7c9e // indirect
 	golang.org/x/mod v0.3.0 // indirect
