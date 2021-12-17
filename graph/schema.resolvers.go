@@ -5,30 +5,64 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/iyiola-dev/go-graphql/graph/generated"
 	"github.com/iyiola-dev/go-graphql/graph/model"
 )
 
-func (r *mutationResolver) CreatBook(ctx context.Context, input model.BookInput) (*model.Book, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) CreateBook(ctx context.Context, input model.BookInput) (*model.Book, error) {
+	book, err := r.BookRepository.CreateBook(&input)
+	bookCreated := &model.Book{
+		Author:    book.Author,
+		Publisher: book.Publisher,
+		Title:     book.Title,
+		ID:        book.ID,
+	}
+	if err != nil {
+		return nil, err
+	}
+	return bookCreated, nil
 }
 
 func (r *mutationResolver) DeleteBook(ctx context.Context, id int) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	err := r.BookRepository.DeleteBook(id)
+	if err != nil {
+		return "", err
+	}
+	successMessage := "successfully deleted"
+	return successMessage, nil
 }
 
 func (r *mutationResolver) UpdateBook(ctx context.Context, id int, input model.BookInput) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	err := r.BookRepository.UpdateBook(&input, id)
+	if err != nil {
+		return "nil", err
+	}
+	successMessage := "successfully updated"
+
+	return successMessage, nil
 }
 
 func (r *queryResolver) GetAllBooks(ctx context.Context) ([]*model.Book, error) {
-	panic(fmt.Errorf("not implemented"))
+	books, err := r.BookRepository.GetAllBooks()
+	if err != nil {
+		return nil, err
+	}
+	return books, nil
 }
 
 func (r *queryResolver) GetOneBook(ctx context.Context, id int) (*model.Book, error) {
-	panic(fmt.Errorf("not implemented"))
+	book, err := r.BookRepository.GetOneBook(id)
+	selectedBook := &model.Book{
+		ID:        book.ID,
+		Author:    book.Author,
+		Publisher: book.Publisher,
+		Title:     book.Title,
+	}
+	if err != nil {
+		return nil, err
+	}
+	return selectedBook, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

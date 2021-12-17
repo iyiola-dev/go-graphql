@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/99designs/gqlgen v0.14.0
+	github.com/joho/godotenv v1.4.0
 	github.com/vektah/gqlparser/v2 v2.2.0
 	gorm.io/gorm v1.22.4
 )

@@ -11,12 +11,14 @@ type BookRepository interface {
 	UpdateBook(bookInput *model.BookInput, id int) error
 	DeleteBook(id int) error
 	GetOneBook(id int) (*models.Book, error)
-	GetAllBooks() (*[]model.Book, error)
+	GetAllBooks() ([]*model.Book, error)
 }
 
 type BookService struct {
 	Db *gorm.DB
 }
+
+var _ BookRepository = &BookService{}
 
 func NewBookService(db *gorm.DB) *BookService {
 	return &BookService{
@@ -57,9 +59,9 @@ func (b *BookService) GetOneBook(id int) (*models.Book, error) {
 	return book, err
 }
 
-func (b *BookService) GetAllBooks() (*[]model.Book, error) {
-	books := []model.Book{}
+func (b *BookService) GetAllBooks() ([]*model.Book, error) {
+	books := []*model.Book{}
 	err := b.Db.Find(&books).Error
-	return &books, err
+	return books, err
 
 }

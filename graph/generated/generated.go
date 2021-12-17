@@ -51,7 +51,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreatBook  func(childComplexity int, input model.BookInput) int
+		CreateBook func(childComplexity int, input model.BookInput) int
 		DeleteBook func(childComplexity int, id int) int
 		UpdateBook func(childComplexity int, id int, input model.BookInput) int
 	}
@@ -63,7 +63,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreatBook(ctx context.Context, input model.BookInput) (*model.Book, error)
+	CreateBook(ctx context.Context, input model.BookInput) (*model.Book, error)
 	DeleteBook(ctx context.Context, id int) (string, error)
 	UpdateBook(ctx context.Context, id int, input model.BookInput) (string, error)
 }
@@ -115,17 +115,17 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Book.Title(childComplexity), true
 
-	case "Mutation.CreatBook":
-		if e.complexity.Mutation.CreatBook == nil {
+	case "Mutation.CreateBook":
+		if e.complexity.Mutation.CreateBook == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreatBook_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_CreateBook_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreatBook(childComplexity, args["input"].(model.BookInput)), true
+		return e.complexity.Mutation.CreateBook(childComplexity, args["input"].(model.BookInput)), true
 
 	case "Mutation.DeleteBook":
 		if e.complexity.Mutation.DeleteBook == nil {
@@ -251,7 +251,7 @@ input BookInput{
   publisher: String!
 }
 type Mutation{
-  CreatBook(input: BookInput!): Book!
+  CreateBook(input: BookInput!): Book!
   DeleteBook(id: Int!): String!
   UpdateBook(id: Int!, input: BookInput!): String!
 
@@ -267,7 +267,7 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
 // region    ***************************** args.gotpl *****************************
 
-func (ec *executionContext) field_Mutation_CreatBook_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_CreateBook_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 model.BookInput
@@ -529,7 +529,7 @@ func (ec *executionContext) _Book_publisher(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreatBook(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_CreateBook(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -546,7 +546,7 @@ func (ec *executionContext) _Mutation_CreatBook(ctx context.Context, field graph
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreatBook_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_CreateBook_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -554,7 +554,7 @@ func (ec *executionContext) _Mutation_CreatBook(ctx context.Context, field graph
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreatBook(rctx, args["input"].(model.BookInput))
+		return ec.resolvers.Mutation().CreateBook(rctx, args["input"].(model.BookInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2029,8 +2029,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
-		case "CreatBook":
-			out.Values[i] = ec._Mutation_CreatBook(ctx, field)
+		case "CreateBook":
+			out.Values[i] = ec._Mutation_CreateBook(ctx, field)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
